@@ -80,13 +80,13 @@ $isSupe = false;
         <?php foreach($superheroes as $superhero):?>
             <?php if(strtolower($query)==strtolower($superhero["name"]) || strtolower($query)==strtolower($superhero["alias"])):?>
                 <h3><?php echo $superhero["alias"];?></h3>
-                <h4><?php echo $superhero["name"];?></h4>
+                <h4><?php echo "A.K.A {$superhero["name"]}";?></h4>
                 <p><?php echo $superhero["biography"];?></p>
                 <?php $isSupe = true;?>
             <?php endif;?>
     <?php endforeach;?>
     
     <?php if($isSupe==false):?>
-        <p>Superhero not found<p>
+        <p><b>Superhero not found</b><p>
     <?php endif; ?>
 <?php endif;?>
