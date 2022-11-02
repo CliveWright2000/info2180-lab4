@@ -62,11 +62,31 @@ $superheroes = [
       "biography" => "Notably powerful, Wanda Maximoff has fought both against and with the Avengers, attempting to hone her abilities and do what she believes is right to help the world.",
   ], 
 ];
-
 ?>
 
-<ul>
-<?php foreach ($superheroes as $superhero): ?>
-  <li><?= $superhero['alias']; ?></li>
-<?php endforeach; ?>
-</ul>
+
+<?php
+$query = filter_input(INPUT_GET, 'query', FILTER_SANITIZE_STRING);
+$isSupe = false;
+?>
+
+<?php if($query == ''):?>
+    <ul>
+        <?php foreach ($superheroes as $superhero): ?>
+            <li><?= $superhero["alias"]; ?></li>
+        <?php endforeach; ?>
+    </ul>
+    <?php else:?>
+        <?php foreach($superheroes as $superhero):?>
+            <?php if(strtolower($query)==strtolower($superhero["name"]) || strtolower($query)==strtolower($superhero["alias"])):?>
+                <h3><?php echo $superhero["alias"];?></h3>
+                <h4><?php echo $superhero["name"];?></h4>
+                <p><?php echo $superhero["biography"];?></p>
+                <?php $isSupe = true;?>
+            <?php endif;?>
+    <?php endforeach;?>
+    
+    <?php if($isSupe==false):?>
+        <p>Superhero not found<p>
+    <?php endif; ?>
+<?php endif;?>
